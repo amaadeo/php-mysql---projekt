@@ -20,7 +20,7 @@
 		$password = htmlentities($password, ENT_QUOTES, "UTF-8");
 
 		if ($result = @$connect->query(
-			sprintf("SELECT * FROM customers WHERE User = '%s' AND Password = '%s'",
+			sprintf("SELECT * FROM accounts WHERE Login = '%s' AND Password = '%s'",
 			mysqli_real_escape_string($connect, $login),
 			mysqli_real_escape_string($connect, $password)))) {
 			
@@ -30,7 +30,7 @@
 					$_SESSION['ifLogIn'] = true;
 					
 					$row = $result->fetch_assoc();
-					$_SESSION['user'] = $row['User'];
+					$_SESSION['user'] = $row['Login'];
 					$pass = $row['Password'];
 					
 					unset($_SESSION['error']);

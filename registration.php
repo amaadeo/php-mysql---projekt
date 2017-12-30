@@ -24,6 +24,10 @@
 				<input type="text" id="province" name="province"/>
 			<label for="country">Kraj:</label> 
 				<input type="text" id="country" name="country"/>
+			<label for="country">PESEL:</label> 
+				<input type="text" id="pesel" name="pesel"/>
+			<label for="country">Telefon:</label> 
+				<input type="text" id="telefon" name="telefon"/>	
 				
 			<div class="rejestruj">
 				<input type="submit" value="Zarejestruj" class="button"/>

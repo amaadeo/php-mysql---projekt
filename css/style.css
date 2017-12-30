@@ -12,10 +12,76 @@
 		height: 100%;
 		margin: 0 auto;
 	}
+	
+	.header
+	{
+		position: relative;
+		background-color: white;
+		width: 100%;
+		height: 100%;
+	}
+	
+	ul.menu, ul.menu li
+	{
+		display: block;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		letter-spacing: 2px;
+	}
+
+	ul.menu
+	{
+		position: relative;
+		width: calc(100%-0px);
+	}
+
+	ul.menu li 
+	{
+		box-sizing: border-box;
+		width: 20%;
+		float: left;
+		border-width: 0 0.5px 5px 0px;
+		border-style: solid;
+		border-color: transparent;
+
+	}
+
+	.menu a, ul.menu .menu a:visited 
+	{
+		position: relative;
+		text-decoration: blink;
+		display: block;
+		text-align: center;
+		font-size: 23px;
+		background-color: #70A8A2;;
+		color: #F1F1F1;
+		border-top: 5px solid #666;
+		border-radius: 12px;
+	}
+
+	.menu a:hover 
+	{
+		background-color: #0A7267;
+	}
+	.footer
+	{	
+		position: relative;
+		background-color: #414141;
+		width: 100%;
+		height: 2%;
+		float: left;
+		color: white;
+		text-align: center;
+		font-size: 25px;
+		opacity: 0.8;
+
+	}
+	
 	.main
 	{
 		position: relative;
-		width: 25%;
+		width: 30%;
 		height: 50%;
 		margin-left: auto; 
 		margin-right: auto;
@@ -62,7 +128,7 @@
 		color: #696969;
 		font-size: 25px;
 		text-shadow: 0 0 1px silver;
-		}
+	}
 	
 	#login, #password {
 		display: block;
@@ -157,10 +223,58 @@
 		font-size: 12px;
 		letter-spacing: 0px;
 		float: left;
-		margin-left: 50px;
+		margin-left: 100px;
 	}
 	
 	.but {
 		float: left;
 		width: 100%;
+	}
+	
+	.dalej {
+
+		width:25%;
+	}
+	
+	.leftbox {
+		position: relative;
+		width: 50%;
+		float:left;
+	}
+	
+	.rightbox {
+		display: block;
+		position: relative;
+		width: 50%;
+		float:right;
+	}
+	
+	#nazwaodbiorcy, #numerrachunku, #adresodbiorcy, #tytulprzelewu {
+		display: block;
+		width: 90%; 
+		font-size: 12px;
+		
+	}
+	
+	.box {
+		position: relative;
+		width: 60%;
+		height: 300px;
+		margin-top: 250px;
+		margin-left: auto; 
+		margin-right: auto;
+		border-style: dotted;
+		border: 1px solid silver;
+		background: rgba(255, 255, 255, .4);
+	}
+	
+	.error2 {
+		color: red;
+		font-weight: bold;
+		font-family: calibri;
+		font-size: 20px;
+		letter-spacing: 0px;
+		float: left;
+		margin-top: 10px;
+		margin-left: 20px;	
 	}
