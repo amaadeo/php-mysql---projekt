@@ -11,7 +11,7 @@
 <html lang="pl">
 
 	<head>
-		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
 		<link href='https://fonts.googleapis.com/css?family=Amatic+SC:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -48,7 +48,7 @@
 				</div>
 				<div id="rejestracja">
 					<div class="pasek2"><span class="log">Nie masz jeszcze konta?</span></div>
-					<form action="registration.php" method="post">
+					<form action="registration1.php" method="post">
 						<div class="zarejestruj">
 							<input type="submit" value="Zarejestruj się" class = "button"/>
 						</div>

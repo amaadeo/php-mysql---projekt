@@ -13,7 +13,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
 		<link href='https://fonts.googleapis.com/css?family=Amatic+SC:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Twoje konto</title>
 	</head>
 	
@@ -22,7 +22,7 @@
 			<header class="header">
 					
 				<ul class="menu">
-					<li> <a href="aktualnosci.html" title="AKTUALNOŚCI">STAN KONTA</a></li>
+					<li> <a href="szczegolykonta.php" title="SZCZEGÓŁY KONTA">WPŁATA/WYPŁATA</a></li>
 					<li> <a href="getname.php" title="PRZELEW">PRZELEW</a></li>
 					<li> <a href="tabelaeast.html" title="TABELA">HISTORIA</a></li>
 					<li> <a href="terminarz.html" title="TERMINARZ">MOJE KONTO</a></li>

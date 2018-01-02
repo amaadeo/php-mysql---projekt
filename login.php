@@ -17,25 +17,27 @@
 		$password = $_POST['password'];
 		
 		$login = htmlentities($login, ENT_QUOTES, "UTF-8");
-		$password = htmlentities($password, ENT_QUOTES, "UTF-8");
+		
 
 		if ($result = @$connect->query(
-			sprintf("SELECT * FROM accounts WHERE Login = '%s' AND Password = '%s'",
-			mysqli_real_escape_string($connect, $login),
-			mysqli_real_escape_string($connect, $password)))) {
+			sprintf("SELECT * FROM accounts WHERE Login = '%s'",
+			mysqli_real_escape_string($connect, $login)))) {
 			
 				$users_number = $result->num_rows;
 				
-				if ($users_number == 1) {
-					$_SESSION['ifLogIn'] = true;
+				if ($users_number > 0) {
 					
-					$row = $result->fetch_assoc();
-					$_SESSION['user'] = $row['Login'];
-					$pass = $row['Password'];
-					
-					unset($_SESSION['error']);
-					$result->free_result();
-					header('Location: account.php');
+					$row = $result->fetch_assoc();					
+					if(password_verify($password, $row['Password'])){
+						$_SESSION['ifLogIn'] = true;
+						$_SESSION['user'] = $row['Login'];
+						unset($_SESSION['error']);
+						$result->free_result();
+						header('Location: account.php');
+					}
+					else {
+						echo 'urwa';
+					}
 				}
 				else {
 					$_SESSION['error'] = 'Nieprawidłowy login lub hasło!';

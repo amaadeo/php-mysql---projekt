@@ -1,12 +1,16 @@
 <?php 
 	session_start();
+	if(!isset($_SESSION['ifLogIn']) && ($_SESSION['ifLogIn'] == false)) {
+		header('Location: index.php');
+		exit();
+	}
 ?>
 
 <!DOCTYPE HTML>
 <html lang="pl">
 
 	<head>
-		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
 		<link href='https://fonts.googleapis.com/css?family=Amatic+SC:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -31,7 +35,7 @@
 						?>
 						PLN
 						</p>
-						<p> Kwota: <input type="number" id="amount" name="amount"/></p>
+						<p> Kwota: <input type="number" min="1" step="0.01" id="amount" name="amount"/></p>
 					</div>
 					<div class="rightbox">
 						<p> Nazwa odbiorcy: <input type="text" id="nazwaodbiorcy" name="nazwaodbiorcy"/> </p>
@@ -41,6 +45,9 @@
 					</div>
 					<div class="dalej">
 						<input type="submit" value="Dalej" class="button"/>
+					</div>
+					<div class="wroc">
+						<a onclick="location.href='account.php';"><input type="button" value="Powrót" class="button">
 					</div>
 					<div class="error2">
 						<?php

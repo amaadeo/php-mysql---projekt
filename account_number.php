@@ -14,11 +14,13 @@
 	}
 	else {
 		$login = $_SESSION['user'];
-		$account_number_sql = "SELECT Account_Number FROM accounts WHERE Login ='$login'";
+		$account_number_sql = "SELECT Account_ID, Account_Number FROM accounts 
+								WHERE Login ='$login'";
 		
 		if ($result = @$connect->query($account_number_sql)) {
 			$row = $result->fetch_assoc();
 			$_SESSION['account_number'] = $row['Account_Number'];
+			$_SESSION['account_id'] = $row['Account_ID'];
 			$result->free_result();
 			header('Location: current_ballance.php');
 

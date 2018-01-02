@@ -21,7 +21,6 @@
 			$_SESSION['current_ballance'] = $row['Current_Ballance'];
 			$result->free_result();
 			header('Location: transfer.php');
-
 		}
 		$connect->close();
 	}
