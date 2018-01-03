@@ -55,6 +55,10 @@
 					</form>
 				</div>
 			</div>
+			
 		</div>
+		<footer class="footer">
+				&#x24B8; by Amadeusz Janiak | All rights reserverd
+			</footer>
 	</body>
 </html>

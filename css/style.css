@@ -9,7 +9,7 @@
 		position: relative;
 		float: none;
 		width: 100%;
-		height: 100%;
+		height: 650px;
 		margin: 0 auto;
 	}
 	
@@ -18,7 +18,7 @@
 		position: relative;
 		background-color: white;
 		width: 100%;
-		height: 100%;
+		height: 5%;
 	}
 	
 	ul.menu, ul.menu li
@@ -69,7 +69,7 @@
 		position: relative;
 		background-color: #414141;
 		width: 100%;
-		height: 2%;
+		height: 6%;
 		float: left;
 		color: white;
 		text-align: center;
@@ -82,14 +82,10 @@
 	{
 		position: relative;
 		width: 30%;
-		height: 50%;
+		height: 80%;
 		margin-left: auto; 
 		margin-right: auto;
 		margin-top: 100px;
-		border-style: dotted;
-		border: 1px solid silver;
-		background: rgba(255, 255, 255, .4);
-		border-radius: 50px 50px 0px 5px;
 	}
 
 	#logowanie {
@@ -100,7 +96,8 @@
 		-webkit-box-shadow: 0 0 2px silver; 
 		-moz-box-shadow: 0 0 2px silver; 
 		box-shadow: 0 0 1px silver;
-		height: 340px;
+		background: rgba(255, 255, 255, .4);
+		height: 70%;
 	}
 	
 	#rejestracja {
@@ -111,10 +108,12 @@
 		-webkit-box-shadow: 0 0 2px silver; 
 		-moz-box-shadow: 0 0 2px silver; 
 		box-shadow: 0 0 1px silver;
-		height: 120px;
+		height: 25%;
 		border-top: 1px solid silver;
 		background: rgba(255, 255, 255, .3);
 		border-radius: 50px 50px 0px 5px;
+
+		clear: both;
 	}
 	
 	form {
@@ -182,7 +181,7 @@
 		position: relative;
 		float: right;
 		width: 30%;
-		margin-right: 50px;
+		margin-right: 30px;
 	}
 	
 	.zarejestruj {
@@ -220,7 +219,7 @@
 		color: red;
 		font-weight: bold;
 		font-family: calibri;
-		font-size: 12px;
+		font-size: 18px;
 		letter-spacing: 0px;
 		float: left;
 		margin-left: 100px;
@@ -231,41 +230,56 @@
 		width: 100%;
 	}
 	
+	.buttony {
+		float: left;
+		width: 100%;
+	}
+	
 	.dalej {
-
-		width:25%;
+		float: left;
+		margin-left: 35px;
+		width: 20%;
+	}
+	.wroc {
+		width: 10%;
+		float: right;
+		margin-right: 55px;
 	}
 	
 	.leftbox {
 		position: relative;
-		width: 50%;
-		float:left;
+		width: 30%;
+		float: left;
+		font-size: 28px;
+		margin-left: 35px;
 	}
 	
 	.rightbox {
 		display: block;
 		position: relative;
 		width: 50%;
-		float:right;
+		float: left;
+		margin-left: 188px;
 	}
 	
 	#nazwaodbiorcy, #numerrachunku, #adresodbiorcy, #tytulprzelewu {
 		display: block;
 		width: 90%; 
-		font-size: 12px;
-		
+		font-size: 15px;
+		font-family: Arial;
 	}
 	
 	.box {
 		position: relative;
 		width: 60%;
-		height: 300px;
-		margin-top: 250px;
+		height: 92%;
+		margin-top: 100px;
 		margin-left: auto; 
 		margin-right: auto;
 		border-style: dotted;
 		border: 1px solid silver;
 		background: rgba(255, 255, 255, .4);
+		border-radius: 50px 50px 0px 5px;
 	}
 	
 	.error2 {
@@ -274,7 +288,26 @@
 		font-family: calibri;
 		font-size: 20px;
 		letter-spacing: 0px;
-		float: left;
-		margin-top: 10px;
-		margin-left: 20px;	
+		margin-top: 5px;
+		margin-left: 35px;
 	}
+	
+	.labele {
+		height: 22px;
+	}
+	
+	.labele2 {
+		height: 50px;
+	}
+	
+	.kwota {
+		height: 20%;
+		font-size: 25px;
+		width: 40%;
+	}
+	
+	textarea {
+		resize: none;
+	}
+	
+	

@@ -29,14 +29,18 @@
 					
 					$row = $result->fetch_assoc();					
 					if(password_verify($password, $row['Password'])){
+						
 						$_SESSION['ifLogIn'] = true;
 						$_SESSION['user'] = $row['Login'];
 						unset($_SESSION['error']);
 						$result->free_result();
-						header('Location: account.php');
+						$_SESSION['flag'] = true;
+						header('Location: getaccountinformations.php');
+
 					}
 					else {
-						echo 'urwa';
+						$_SESSION['error'] = 'Nieprawidłowy login lub hasło!';
+						header('Location: index.php');
 					}
 				}
 				else {

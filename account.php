@@ -22,11 +22,11 @@
 			<header class="header">
 					
 				<ul class="menu">
-					<li> <a href="szczegolykonta.php" title="SZCZEGÓŁY KONTA">WPŁATA/WYPŁATA</a></li>
-					<li> <a href="getname.php" title="PRZELEW">PRZELEW</a></li>
-					<li> <a href="tabelaeast.html" title="TABELA">HISTORIA</a></li>
-					<li> <a href="terminarz.html" title="TERMINARZ">MOJE KONTO</a></li>
-					<li> <a href="logout.php" title="LOGOUT">WYLOGUJ SIĘ</a></li>				
+					<li> <a href="szczegolykonta.php" title="WPŁAĆ LUB WYPŁAĆ PIENIĄDZE">WPŁATA/WYPŁATA</a></li>
+					<li> <a href="getaccountinformations.php" title="ZRÓB PRZELEW">PRZELEW</a></li>
+					<li> <a href="tabelaeast.html" title="ZOBACZ HISTORIĘ KONTA">HISTORIA</a></li>
+					<li> <a href="terminarz.html" title="SZCZEGÓŁY TWOJEGO KONTA">MOJE KONTO</a></li>
+					<li> <a href="logout.php" title="WYLOGUJ SIĘ">WYLOGUJ SIĘ</a></li>				
 				</ul>
 				
 			</header>
@@ -35,11 +35,12 @@
 				
 			</div>
 					
-			<footer class="footer">
-				<p>&#x24B8; by Amadeusz Janiak | All rights reserverd</p>
-			</footer>
+			
 
 		</div>
+		<footer class="footer">
+				&#x24B8; by Amadeusz Janiak | All rights reserverd
+			</footer>
 	</body>
 	
 </html>

@@ -4,6 +4,7 @@
 		header('Location: index.php');
 		exit();
 	}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -24,41 +25,48 @@
 				<div class="pasek"><span class="log">Przelew jednorazowy</span></div>
 				<form action="transfermoney.php" method="post">
 					<div class="leftbox">
-						<p> Z rachunku:
+						<p><b>Z rachunku:</b><br><br>
 						<?php 
-							echo $_SESSION['name'].'<br>'.$_SESSION['account_number']; 
+							echo $_SESSION['name'].'<br>'.$_SESSION['street'].'<br>'.$_SESSION['postcode']." ".$_SESSION['city']."<br>".$_SESSION['account_number']; 
 						?>
 						</p>
-						<p> Dostępne środki: 
+						<p><b>Dostępne środki:<br></b> 
 						<?php 
 							echo number_format($_SESSION['current_ballance'], 2); 
 						?>
 						PLN
 						</p>
-						<p> Kwota: <input type="number" min="1" step="0.01" id="amount" name="amount"/></p>
+						<p><b>Kwota: </b> <input type="number" min="1" max="9999999" step="0.01" id="amount" name="amount" class="kwota"/></p>						
 					</div>
 					<div class="rightbox">
-						<p> Nazwa odbiorcy: <input type="text" id="nazwaodbiorcy" name="nazwaodbiorcy"/> </p>
-						<p> Numer rachunku: <input type="text" id="numerrachunku" name="numerrachunku"/> </p>
-						<p> Adres odbiorcy: <input type="text" id="adresodbiorcy" name="adresodbiorcy"/> </p>
-						<p> Tytuł przelewu: <input type="text" id="tytulprzelewu" name="tytulprzelewu"/> </p>
+						<p> Nazwa odbiorcy: <input type="text" id="nazwaodbiorcy" name="nazwaodbiorcy" class="labele"/> </p>
+						<p> Numer rachunku: <input type="text" id="numerrachunku" name="numerrachunku" class="labele"/> </p>
+						<p> Adres odbiorcy: <textarea rows="5"  id="adresodbiorcy" name="adresodbiorcy"></textarea></p>
+						<p> Tytuł przelewu (max. 120 znaków): <textarea rows="5" id="tytulprzelewu" name="tytulprzelewu" maxlength="120"></textarea></p>
 					</div>
-					<div class="dalej">
-						<input type="submit" value="Dalej" class="button"/>
+					<div class="buttony">
+						<div class="wroc">
+							<a onclick="location.href='account.php';"><input type="button" value="Powrót" class="button">
+						</div>
+						<div class="dalej"> 
+							<input type="submit" value="Wykonaj" class="button"/>
+						</div>
+						<div class="error2">
+							<?php
+								if(isset($_SESSION['error2'])) {
+									echo "<br><br>".$_SESSION['error2'];
+									unset($_SESSION['error2']);
+								}
+							?>
+						</div>		
 					</div>
-					<div class="wroc">
-						<a onclick="location.href='account.php';"><input type="button" value="Powrót" class="button">
-					</div>
-					<div class="error2">
-						<?php
-							if(isset($_SESSION['error2'])) {
-								echo $_SESSION['error2'];
-								unset($_SESSION['error2']);
-							}
-						?>
-					</div>				
+						
 				</form>
 			</div>
+			
 		</div>
+		<footer class="footer">
+				&#x24B8; by Amadeusz Janiak | All rights reserverd
+			</footer>
 	</body>
 </html>
