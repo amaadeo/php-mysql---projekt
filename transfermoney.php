@@ -6,6 +6,8 @@
 		exit();
 	}
 	
+	$_SESSION['popup'] = false;
+	
 	if (empty($_POST['amount']) ||
 		empty($_POST['nazwaodbiorcy']) ||
 		empty($_POST['numerrachunku']) ||
@@ -56,29 +58,28 @@
 				
 						if(@$connect->query($nowy_stan_konta_odbiorcy_sql)) {
 							$new_ballance2 = $stan_konta_nadawcy - $kwota;
-
+							
 							$nowy_stan_konta_nadawcy_sql = "UPDATE accounts 
 												SET Current_Ballance= '$new_ballance2'
 												WHERE Account_Number = '$konto_nadawcy'";
 							
 							if(@$connect->query($nowy_stan_konta_nadawcy_sql));
 
-							$new_transaction_sql = "INSERT INTO transactions (Account_ID, Customer_ID, Transaction_Type_ID, Transaction_Datetime, Transaction_Amount, Transaction_Title) VALUES ('$account_id_nadawcy', '$customer_id_odbiorcy', '2', now(), '$kwota', '$transfertitle')";
+							$new_transaction_sql = "INSERT INTO transactions (Account_ID, Customer_ID, Transaction_Type_ID, Transaction_Datetime, Transaction_Amount, Transaction_Title, Account_Ballance_Before, Account_Ballance_After) VALUES ('$account_id_nadawcy', '$customer_id_odbiorcy', '2', now(), '$kwota', '$transfertitle', '$stan_konta_nadawcy', '$new_ballance2')";
 							
 							if(@$connect->query($new_transaction_sql));
 					
 						}
 					}
 					else {
-						$result->free_result();
-						$connect->close();
 						$_SESSION['error2'] = 'Nieprawidłowe dane odbiorcy.';
 						header('Location: transfer.php');
 						exit();
 					}
 					$result->free_result();
 					$connect->close();
-					header('Location: account.php');
+					$_SESSION['popup'] = true;
+					header('Location: transfer.php');
 				}
 			}
 			else {

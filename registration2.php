@@ -21,33 +21,66 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
 		<link href='https://fonts.googleapis.com/css?family=Amatic+SC:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<script  type="text/javascript">
+			function myFunction() {
+				var zmiennaSesyjna = '<?php echo $_SESSION['popup']; ?>';
+				if(zmiennaSesyjna == true) {
+					var popup = document.getElementById("myPopup");
+					var box = document.getElementById("box");
+					box.classList.toggle("zakryj");
+					popup.classList.toggle("show");
+				}
+			}	
+		</script>
+		
 		<title>Rejestracja</title>
 	</head>
 	
-	<body>
+	<body onload="myFunction()">
 		<div class="page_content">
+			<div class='popup'>
+					<span class='popuptext' id='myPopup'>
+						<div class='popup-image'>
+							<img src='images/v.png'>
+						</div>
+							<h2>Rejestracja przebiegła pomyślnie!</h4>
+							<form action='index.php' method='post'>
+								<button type='submit' name='submit' class='button'>OK</button>
+							</form>
+					</span>
+				<?php $_SESSION['popup'] = false; ?>
+			</div>
+		
+			<div class="box" id="box">
+				<div class="pasek"><span class="log">Rejestracja (krok 2)</span></div>
 				<form action="register2.php" method="post">
-					<label for="name">Imię:</label> 
-						<input type="text" id="name" name="name"/>
-					<label for="surname">Nazwisko:</label> 
-						<input type="text" id="surname" name="surname"/>
-					<label for="street">Ulica:</label> 
-						<input type="text" id="street" name="street"/>
-					<label for="city">Miasto:</label> 
-						<input type="text" id="city" name="city"/>
-					<label for="post_code">Kod pocztowy:</label> 
-						<input type="text" id="post_code" name="post_code"/>
-					<label for="province">Województwo:</label> 
-						<input type="text" id="province" name="province"/>
-					<label for="country">Kraj:</label> 
-						<input type="text" id="country" name="country"/>
-					<label for="pesel">PESEL:</label> 
-						<input type="text" id="pesel" name="pesel"/>
-					<label for="telefon">Telefon:</label> 
-						<input type="text" id="telefon" name="telefon"/>	
-					
-					<div class="rejestruj">
-						<input type="submit" value="Zarejestruj" class="button"/>
+					<div class="lewo">
+						<label for="name">Imię:</label> 
+							<input type="text" id="name" name="name"/>
+						<label for="surname">Nazwisko:</label> 
+							<input type="text" id="surname" name="surname"/>
+						<label for="street">Ulica:</label> 
+							<input type="text" id="street" name="street"/>
+						<label for="city">Miasto:</label> 
+							<input type="text" id="city" name="city"/>
+					</div>
+					<div class="prawo">
+						<label for="post_code">Kod pocztowy:</label> 
+							<input type="text" id="post_code" name="post_code"/>
+						<label for="province">Województwo:</label> 
+							<input type="text" id="province" name="province"/>
+						<label for="pesel">PESEL:</label> 
+							<input type="text" id="pesel" name="pesel"/>
+						<label for="telefon">Telefon:</label> 
+							<input type="text" id="telefon" name="telefon"/>	
+					</div>
+					<div class="buttony">
+						<div class="rejestruj">
+							<input type="submit" value="Zarejestruj" class="button"/>
+						</div>
+						<div class="wroc">
+								<a onclick="location.href='account.php';"><input type="button" value="Anuluj" class="button">
+						</div>
 					</div>
 					<div class="error2">
 						<?php
@@ -58,7 +91,11 @@
 						?>
 					</div>
 				</form>
+			</div>
 		</div>
+		<footer class="footer">
+				&#x24B8; by Amadeusz Janiak | All rights reserverd
+		</footer>
 	</body>
 	
 </html>

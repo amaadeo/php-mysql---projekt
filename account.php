@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	
-	if(!isset($_SESSION['ifLogIn'])) {
+	if(!isset($_SESSION['ifLogIn']) && ($_SESSION['ifLogIn'] == false)) {
 		header('Location: index.php');
 		exit();
 	}
@@ -24,7 +24,7 @@
 				<ul class="menu">
 					<li> <a href="szczegolykonta.php" title="WPŁAĆ LUB WYPŁAĆ PIENIĄDZE">WPŁATA/WYPŁATA</a></li>
 					<li> <a href="getaccountinformations.php" title="ZRÓB PRZELEW">PRZELEW</a></li>
-					<li> <a href="tabelaeast.html" title="ZOBACZ HISTORIĘ KONTA">HISTORIA</a></li>
+					<li> <a href="gettransactionshistory.php" title="ZOBACZ HISTORIĘ KONTA">HISTORIA KONTA</a></li>
 					<li> <a href="terminarz.html" title="SZCZEGÓŁY TWOJEGO KONTA">MOJE KONTO</a></li>
 					<li> <a href="logout.php" title="WYLOGUJ SIĘ">WYLOGUJ SIĘ</a></li>				
 				</ul>

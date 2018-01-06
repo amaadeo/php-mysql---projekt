@@ -59,6 +59,6 @@
 		</div>
 		<footer class="footer">
 				&#x24B8; by Amadeusz Janiak | All rights reserverd
-			</footer>
+		</footer>
 	</body>
 </html>

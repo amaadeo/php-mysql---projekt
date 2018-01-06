@@ -7,15 +7,14 @@
 	   empty($_POST['city']) || 
 	   empty($_POST['post_code']) || 
 	   empty($_POST['province']) || 
-	   empty($_POST['country']) ||
 	   empty($_POST['pesel']) ||
 	   empty($_POST['telefon'])) {
 		    $_SESSION['error2'] = 'Wszystkie pola muszą być wypełnione.';
-			header('Location: registration.php');
+			header('Location: registration2.php');
 			exit();
 	}
 	
-				
+	$_SESSION['popup'] = false;			
 	$name = $_POST['name'];
 	$surname = $_POST['surname'];
 	$full_name = $name . " " . $surname;
@@ -23,7 +22,6 @@
 	$city = $_POST['city'];
 	$post_code = $_POST['post_code'];
 	$province = $_POST['province'];
-	$country = $_POST['country'];
 	$pesel = $_POST['pesel'];
 	$telefon = $_POST['telefon'];
 	$nick = $_SESSION['nick'];
@@ -43,16 +41,15 @@
 										  WHERE Street = '$street'
 										  AND City = '$city'
 										  AND Postcode = '$post_code'
-										  AND Province = '$province'
-										  AND Country = '$country')";
+										  AND Province = '$province')";
 										
 			if($result=@$connect->query($sprawdzenie_addressid_sql)){
 				$liczba_wierszy = $result->num_rows;
 				$row = $result->fetch_assoc();
 				
 				if($liczba_wierszy == 0){
-					$nowy_adres_sql = "INSERT INTO addresses (Street, City, Postcode, Province, Country)
-									   VALUES ('$street', '$city', '$post_code', '$province', '$country')";
+					$nowy_adres_sql = "INSERT INTO addresses (Street, City, Postcode, Province)
+									   VALUES ('$street', '$city', '$post_code', '$province')";
 					if($result=@$connect->query($nowy_adres_sql)) {
 						if($result=@$connect->query($sprawdzenie_addressid_sql)) {
 							$liczba_wierszy = $result->num_rows;
@@ -92,26 +89,30 @@
 																		VALUES ('$customer_id', '$nick', '$haslo', '$email', '$numer_konta')";
 												if($result=@$connect->query($dodanie_klienta_sql));
 												$konto = false;
-												
 											}
 										}
 									}
-									header('Location: index.php');
+									$connect->close();
+									$_SESSION['popup'] = true;
+									header('Location: registration2.php');
 									exit();
 								}
 							}
 						}
 					}
+					else {
+						$_SESSION['error2'] = 'Podany numer PESEL jest już w bazie użytkowników.';
+						header('Location: registration2.php');
+						exit();
+					}
 				}
 			}
 		}
-		$connect->close();
 	}
 	else {
-		echo 'pesel lub telefon nie prawidlowy';
-
-		
-		
+		$_SESSION['error2'] = 'Podany PESEL lub telefon jest nie prawidlowy';
+		header('Location: registration2.php');
+		exit();
 	}
 	unset($_SESSION['nick']);
 	unset($_SESSION['email']);

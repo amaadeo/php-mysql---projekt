@@ -4,6 +4,7 @@
 		header('Location: index.php');
 		exit();
 	}
+	
 
 ?>
 
@@ -15,13 +16,38 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
 		<link href='https://fonts.googleapis.com/css?family=Amatic+SC:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<script  type="text/javascript">
+			function myFunction() {
+				var zmiennaSesyjna = '<?php echo $_SESSION['popup']; ?>';
+				if(zmiennaSesyjna == true) {
+					var popup = document.getElementById("myPopup");
+					var box = document.getElementById("box");
+					box.classList.toggle("zakryj");
+					popup.classList.toggle("show");
+				}
+			}
+		</script>
+		
 		<title>System bankowy</title>
 		
 	</head>
 	
-	<body>
+	<body onload="myFunction()">
 		<div class="page_content">
-			<div class="box">
+
+			<div class='popup'>
+				<span class='popuptext' id='myPopup'>
+					<div class='popup-image'>
+						<img src='images/v.png'>
+					</div>
+						<h2>Przelew wykonano pomyślnie!</h4>
+						<form action='index.php' method='post'>
+							<button type='submit' name='submit' class='button'>OK</button>
+						</form>
+				</span>	
+				<?php $_SESSION['popup'] = false; ?>
+			</div>
+			<div class="box" id="box">
 				<div class="pasek"><span class="log">Przelew jednorazowy</span></div>
 				<form action="transfermoney.php" method="post">
 					<div class="leftbox">
@@ -49,7 +75,7 @@
 							<a onclick="location.href='account.php';"><input type="button" value="Powrót" class="button">
 						</div>
 						<div class="dalej"> 
-							<input type="submit" value="Wykonaj" class="button"/>
+							<input type="submit" value="Wykonaj" class="button" onclick="myFunction()"/>
 						</div>
 						<div class="error2">
 							<?php

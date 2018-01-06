@@ -23,8 +23,11 @@
 	
 	<body>
 		<div class="page_content">
+			<div class="rejestracja">
+				<div class="pasek"><span class="log">Rejestracja (krok 1)</span></div>
 				<form action="register1.php" method="post">
-					<label for="nick">Nazwa użytkownika:</label> 
+					
+					<label for="nick">Login:</label> 
 						<input type="text" id="nick" name="nick"/>
 					<label for="email">E-mail:</label> 
 						<input type="email" id="email" name="email"/>
@@ -32,9 +35,15 @@
 						<input type="password" id="haslo1" name="haslo1"/>
 					<label for="haslo2">Powtórz hasło:</label> 
 						<input type="password" id="haslo2" name="haslo2"/>
-					
-					<div class="dalej">
-						<input type="submit" value="Dalej" class="button"/>
+						
+						
+					<div class="buttony">
+						<div class="rejestruj">
+							<input type="submit" value="Dalej" class="dalejbutton"/>
+						</div>
+						<div class="wroc2">
+								<a onclick="location.href='account.php';"><input type="button" value="Anuluj" class="anulujbutton">
+						</div>
 					</div>
 					<div class="error2">
 						<?php
@@ -45,7 +54,11 @@
 						?>
 					</div>
 				</form>
+			</div>
 		</div>
+		<footer class="footer">
+				&#x24B8; by Amadeusz Janiak | All rights reserverd
+		</footer>
 	</body>
 	
 </html>

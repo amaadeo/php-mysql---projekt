@@ -59,8 +59,8 @@
 							$result->free_result();
 							
 							if($_SESSION['flag']){
+								$_SESSION['flag'] = false;	
 								header('Location: account.php');
-								$_SESSION['flag'] = false;
 							}
 							else {
 								header('Location: transfer.php');

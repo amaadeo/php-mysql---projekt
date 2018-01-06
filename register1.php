@@ -16,7 +16,7 @@
 	$haslo2 = $_POST['haslo2'];
 	
 	
-	if(strlen($nick) > 3 && strlen($nick) < 25 && ctype_alnum($nick) == true) {
+	if(strlen($nick) >= 3 && strlen($nick) <= 25 && ctype_alnum($nick) == true) {
 		if(strlen($haslo1) > 7 && strlen($haslo1) < 21) {
 			if($haslo1 == $haslo2) {
 				$haslo_hash = password_hash($haslo1, PASSWORD_DEFAULT);
@@ -49,28 +49,35 @@
 									
 								}
 								else {
-									echo 'email w bazie';
-									echo $email;
-									$_SESSION['error'] = "Podany email jest już w bazie.";
+									$_SESSION['error2'] = '<div class="er2">Podany email jest już w bazie użytkowników.</div>';
+									header('Location: registration1.php');
+									exit();
 								}
 							}
 						}
 						else {
-							echo 'nick zajety';
-							$_SESSION['error'] = "Nick jest zajęty.";
+							$_SESSION['error2'] = '<div class="er2">Podany login jest już w bazie użytkowników.</div>';
+							header('Location: registration1.php');
+							exit();
 						}
 					}
 				}	
 			}
 			else {
-				echo 'niezgodne hasla';
+				$_SESSION['error2'] = '<div class="er2">Podane hasła są różne.</div>';
+				header('Location: registration1.php');
+				exit();
 			}
 		}
 		else {
-			echo 'za krotkie haslo';
+			$_SESSION['error2'] = '<div class="er2">Hasło musi się składać od 8 do 20 znaków.</div>';
+			header('Location: registration1.php');
+			exit();
 		}
 	}
 	else {
-		echo 'za krotki lub za dlugi nick';
+		$_SESSION['error2'] = '<div class="er2">Login musi posiadać od 3 do 25 znaków.</div>';
+		header('Location: registration1.php');
+		exit();
 	}
 ?>
