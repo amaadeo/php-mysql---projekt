@@ -6,12 +6,12 @@
 		exit();
 	}
 	
-	if(!isset($_SESSION['nick']) ||
+	/*if(!isset($_SESSION['nick']) ||
 		!isset($_SESSION['haslo'])||
 		!isset($_SESSION['email'])){
 		header('Location: index.php');
 		exit();	
-	}
+	}*/
 ?>
 
 <!DOCTYPE HTML>
@@ -39,15 +39,25 @@
 	<body onload="myFunction()">
 		<div class="page_content">
 			<div class='popup'>
-					<span class='popuptext' id='myPopup'>
-						<div class='popup-image'>
-							<img src='images/v.png'>
-						</div>
-							<h2>Rejestracja przebiegła pomyślnie!</h4>
-							<form action='index.php' method='post'>
-								<button type='submit' name='submit' class='button'>OK</button>
-							</form>
-					</span>
+				<span class='popuptext' id='myPopup'>
+					<div class='popup-image'>
+						<?php 
+							if(isset($_SESSION['image'])) {
+								echo $_SESSION['image'];
+								unset($_SESSION['image']);
+							}
+						?>
+					</div>
+						<h2><?php 
+							if(isset($_SESSION['error2'])) {
+									echo $_SESSION['error2'];
+									unset($_SESSION['error2']);
+							}
+						?></h2>
+						<form action='index.php' method='post'>
+							<button type='submit' name='submit' class='button'>OK</button>
+						</form>
+				</span>	
 				<?php $_SESSION['popup'] = false; ?>
 			</div>
 		
@@ -81,14 +91,6 @@
 						<div class="wroc">
 								<a onclick="location.href='account.php';"><input type="button" value="Anuluj" class="button">
 						</div>
-					</div>
-					<div class="error2">
-						<?php
-							if(isset($_SESSION['error2'])) {
-								echo $_SESSION['error2'];
-								unset($_SESSION['error2']);
-							}
-						?>
 					</div>
 				</form>
 			</div>

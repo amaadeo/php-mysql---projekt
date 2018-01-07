@@ -1,8 +1,8 @@
 <?php 
 	session_start();
 	
-	if(isset($_SESSION['ifLogIn']) && ($_SESSION['ifLogIn'] == true)) {
-		header('Location: account.php');
+	if(!isset($_SESSION['ifLogIn']) && ($_SESSION['ifLogIn'] == false)) {
+		header('Location: index.php');
 		exit();
 	}
 	unset($_SESSION['nick']);
@@ -51,32 +51,28 @@
 									unset($_SESSION['error2']);
 							}
 						?></h2>
-						<form action='registration1.php' method='post'>
+						<form action='changepassword.php' method='post'>
 							<button type='submit' name='submit' class='button'>OK</button>
 						</form>
 				</span>	
 				<?php $_SESSION['popup'] = false; ?>
 			</div>
-			<div class="rejestracja" id="box">
-				<div class="pasek"><span class="log">Rejestracja (krok 1)</span></div>
-				<form action="register1.php" method="post">
-					
-					<label for="nick">Login:</label> 
-						<input type="text" id="nick" name="nick"/>
-					<label for="email">E-mail:</label> 
-						<input type="email" id="email" name="email"/>
-					<label for="haslo1">Hasło:</label> 
-						<input type="password" id="haslo1" name="haslo1"/>
-					<label for="haslo2">Powtórz hasło:</label> 
-						<input type="password" id="haslo2" name="haslo2"/>
-						
-						
-					<div class="buttony">
-						<div class="rejestruj">
+			<div class="zmiana" id="box">
+				<div class="pasek"><span class="log">Zmiana hasła</span></div>
+				<form action="changepass.php" method="post">
+					<label for="stare">Stare hasło:</label> 
+						<input type="password" id="stare" name="stare"/>
+					<label for="nowe1">Nowe hasło:</label> 
+						<input type="password" id="nowe1" name="nowe1"/>
+					<label for="nowe2">Powtórz nowe hasło:</label> 
+						<input type="password" id="nowe2" name="nowe2"/>
+
+					<div class="buttony2">
+						<div class="zmienhaslo">
 							<input type="submit" value="Dalej" class="dalejbutton"/>
 						</div>
-						<div class="wroc2">
-								<a onclick="location.href='account.php';"><input type="button" value="Anuluj" class="anulujbutton">
+						<div class="wroc3">
+								<a onclick="location.href='accountdetails.php';"><input type="button" value="Anuluj" class="anulujbutton">
 						</div>
 					</div>
 					<div class="error2">

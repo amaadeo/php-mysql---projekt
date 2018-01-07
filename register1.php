@@ -1,4 +1,13 @@
 <?php 
+
+	function filtruj($zmienna)
+	{
+		if(get_magic_quotes_gpc())
+			$zmienna = stripslashes($zmienna); // usuwamy slashe
+	 
+	   // usuwamy spacje, tagi html oraz niebezpieczne znaki
+		return htmlentities(trim($zmienna), ENT_QUOTES, "UTF-8");
+	}
 	session_start();
 	
 	if(empty($_POST['nick']) || 
@@ -6,14 +15,16 @@
 	   empty($_POST['haslo1']) || 
 	   empty($_POST['haslo2'])) {
 		    $_SESSION['error2'] = 'Wszystkie pola muszą być wypełnione.';
+			$_SESSION['popup'] = true;
+			$_SESSION['image'] = '<img src="images/x.png">';
 			header('Location: registration1.php');
 			exit();
 	}
 	
-	$nick = $_POST['nick'];
-	$email = $_POST['email'];
-	$haslo1 = $_POST['haslo1'];
-	$haslo2 = $_POST['haslo2'];
+	$nick = filtruj($_POST['nick']);
+	$email = filtruj($_POST['email']);
+	$haslo1 = filtruj($_POST['haslo1']);
+	$haslo2 = filtruj($_POST['haslo2']);
 	
 	
 	if(strlen($nick) >= 3 && strlen($nick) <= 25 && ctype_alnum($nick) == true) {
@@ -27,18 +38,18 @@
 				if ($connect->connect_errno != 0) {
 					echo "Error: ".$connect->connect_errno;
 				}
-				else {	
-					$sprawdzenie_nick_sql = "SELECT * FROM accounts
-											 WHERE Login = '$nick'";
-				
-					if($result=@$connect->query($sprawdzenie_nick_sql)){
+				else {
+					$connect->query ('SET NAMES utf8');
+					$connect->query ('SET CHARACTER_SET utf8_unicode_ci');				
+					//sprawdzenie czy nick istnieje w bazie
+					if($result=@$connect->query(sprintf("SELECT * FROM accounts
+														WHERE Login = '%s'", $nick))){
 						$liczba_wierszy = $result->num_rows;
 					
 						if($liczba_wierszy == 0){
-							$sprawdzenie_maila_sql = "SELECT * FROM accounts 
-													  WHERE Email = '$email'";
-													  
-							if($result=@$connect->query($sprawdzenie_maila_sql)){
+							// sprawdzenie czy mail jest w bazie					
+							if($result=@$connect->query(sprintf("SELECT * FROM accounts 
+																WHERE Email = '%s'", $email))){
 								$liczba_wierszy = $result->num_rows;
 		
 								if($liczba_wierszy == 0){
@@ -46,17 +57,20 @@
 									$_SESSION['email'] = $email;
 									$_SESSION['haslo'] = $haslo_hash;
 									header('Location: registration2.php');
-									
 								}
 								else {
-									$_SESSION['error2'] = '<div class="er2">Podany email jest już w bazie użytkowników.</div>';
+									$_SESSION['error2'] = 'Podany email jest już w bazie użytkowników.';
+									$_SESSION['popup'] = true;
+									$_SESSION['image'] = '<img src="images/x.png">';
 									header('Location: registration1.php');
 									exit();
 								}
 							}
 						}
 						else {
-							$_SESSION['error2'] = '<div class="er2">Podany login jest już w bazie użytkowników.</div>';
+							$_SESSION['error2'] = 'Podany login jest już w bazie użytkowników.';
+							$_SESSION['popup'] = true;
+							$_SESSION['image'] = '<img src="images/x.png">';
 							header('Location: registration1.php');
 							exit();
 						}
@@ -64,19 +78,23 @@
 				}	
 			}
 			else {
-				$_SESSION['error2'] = '<div class="er2">Podane hasła są różne.</div>';
+				$_SESSION['error2'] = 'Podane hasła są różne.';
+				$_SESSION['popup'] = true;
+				$_SESSION['image'] = '<img src="images/x.png">';
 				header('Location: registration1.php');
 				exit();
 			}
 		}
 		else {
-			$_SESSION['error2'] = '<div class="er2">Hasło musi się składać od 8 do 20 znaków.</div>';
+			$_SESSION['error2'] = 'Hasło musi się składać od 8 do 20 znaków.';
+			$_SESSION['popup'] = true;
+			$_SESSION['image'] = '<img src="images/x.png">';
 			header('Location: registration1.php');
 			exit();
 		}
 	}
 	else {
-		$_SESSION['error2'] = '<div class="er2">Login musi posiadać od 3 do 25 znaków.</div>';
+		$_SESSION['error2'] = 'Login musi posiadać od 3 do 25 znaków.';
 		header('Location: registration1.php');
 		exit();
 	}

@@ -1,4 +1,14 @@
 <?php 
+
+	function filtruj($zmienna)
+	{
+		if(get_magic_quotes_gpc())
+			$zmienna = stripslashes($zmienna); // usuwamy slashe
+	 
+	   // usuwamy spacje, tagi html oraz niebezpieczne znaki
+		return htmlentities(trim($zmienna), ENT_QUOTES, "UTF-8");
+	}
+
 	session_start();
 	
 	if(empty($_POST['name']) || 
@@ -15,18 +25,18 @@
 	}
 	
 	$_SESSION['popup'] = false;			
-	$name = $_POST['name'];
-	$surname = $_POST['surname'];
+	$name = filtruj($_POST['name']);
+	$surname = filtruj($_POST['surname']);
 	$full_name = $name . " " . $surname;
-	$street = $_POST['street'];
-	$city = $_POST['city'];
-	$post_code = $_POST['post_code'];
-	$province = $_POST['province'];
-	$pesel = $_POST['pesel'];
-	$telefon = $_POST['telefon'];
-	$nick = $_SESSION['nick'];
-	$haslo = $_SESSION['haslo'];
-	$email = $_SESSION['email'];
+	$street = filtruj($_POST['street']);
+	$city = filtruj($_POST['city']);
+	$post_code = filtruj($_POST['post_code']);
+	$province = filtruj($_POST['province']);
+	$pesel = filtruj($_POST['pesel']);
+	$telefon = filtruj($_POST['telefon']);
+	$nick = filtruj($_SESSION['nick']);
+	$haslo = filtruj($_SESSION['haslo']);
+	$email = filtruj($_SESSION['email']);
 	
 	if(is_numeric($pesel) && is_numeric($telefon) && strlen($telefon) == 9 && strlen($pesel) == 11){
 	
@@ -36,42 +46,48 @@
 		if ($connect->connect_errno != 0) {
 			echo "Error: ".$connect->connect_errno;
 		}
-		else {			
-			$sprawdzenie_addressid_sql = "(SELECT Address_ID FROM addresses 
-										  WHERE Street = '$street'
-										  AND City = '$city'
-										  AND Postcode = '$post_code'
-										  AND Province = '$province')";
-										
-			if($result=@$connect->query($sprawdzenie_addressid_sql)){
+		else {	
+			$connect->query ('SET NAMES utf8');
+			$connect->query ('SET CHARACTER_SET utf8_unicode_ci');	
+			//sprawdzenie czy adres jest juz w bazie
+			if($result=@$connect->query(sprintf("SELECT Address_ID FROM addresses 
+												  WHERE Street = '%s'
+												  AND City = '%s'
+												  AND Postcode = '%s'
+												  AND Province = '%s'",
+										$street, $city, $post_code, $province))) {
 				$liczba_wierszy = $result->num_rows;
 				$row = $result->fetch_assoc();
 				
 				if($liczba_wierszy == 0){
-					$nowy_adres_sql = "INSERT INTO addresses (Street, City, Postcode, Province)
-									   VALUES ('$street', '$city', '$post_code', '$province')";
-					if($result=@$connect->query($nowy_adres_sql)) {
-						if($result=@$connect->query($sprawdzenie_addressid_sql)) {
+					// dodanie nowego adresu do bazy
+					if($result=@$connect->query(sprintf("INSERT INTO addresses (Street, City, Postcode, Province)
+														VALUES ('%s', '%s', '%s', '%s')",
+												$street, $city, $post_code, $province))) {
+						if($result=@$connect->query(sprintf("SELECT Address_ID FROM addresses 
+												  WHERE Street = '%s'
+												  AND City = '%s'
+												  AND Postcode = '%s'
+												  AND Province = '%s'",
+										$street, $city, $post_code, $province))) {
 							$liczba_wierszy = $result->num_rows;
 							$row = $result->fetch_assoc();
 						}
 					}
 				}
-				
 				$adres_id = $row['Address_ID'];
-				
-				$sprawdzenie_pesel_sql = "SELECT * FROM customers 
-										  WHERE PESEL = '$pesel'";
-					
-				if($result=@$connect->query($sprawdzenie_pesel_sql)){
+				//sprawdzenie czy pesel jest w bazie	
+				if($result=@$connect->query(sprintf("SELECT * FROM customers 
+										  WHERE PESEL = '%s'", $pesel))){
 					$liczba_wierszy = $result->num_rows;
 					if($liczba_wierszy == 0) {
-						$nowy_klient_sql = "INSERT INTO customers (Address_ID, Branch_ID, Name, PESEL, Telephone)
-											VALUES ('$adres_id', '1', '$full_name', '$pesel', '$telefon')";
-						if($result=@$connect->query($nowy_klient_sql)){
-							$customer_id_sql = "SELECT Customer_ID FROM customers
-												WHERE PESEL = '$pesel'";
-							if($result=@$connect->query($customer_id_sql)){
+						//dodanie nowego klienta do bazy
+						if($result=@$connect->query(sprintf("INSERT INTO customers (Address_ID, Branch_ID, Name, PESEL, Telephone)
+															VALUES ('%s', '1', '%s', '%s', '%s')", 
+													$adres_id, $full_name, $pesel, $telefon))){
+							//pobranie z bazy id nowego klienta
+							if($result=@$connect->query(sprintf("SELECT Customer_ID FROM customers
+												WHERE PESEL = '%s'", $pesel))){
 								$liczba_wierszy = $result->num_rows;
 								if($liczba_wierszy == 1) {
 									$row = $result->fetch_assoc();
@@ -87,13 +103,15 @@
 											if($liczba_wierszy == 0) {
 												$dodanie_klienta_sql = "INSERT INTO accounts (Customer_ID, Login, Password, Email, Account_Number)
 																		VALUES ('$customer_id', '$nick', '$haslo', '$email', '$numer_konta')";
-												if($result=@$connect->query($dodanie_klienta_sql));
+												@$connect->query($dodanie_klienta_sql);
 												$konto = false;
 											}
 										}
 									}
 									$connect->close();
+									$_SESSION['error2'] = 'Rejestracja przebiegła pomyślnie!';
 									$_SESSION['popup'] = true;
+									$_SESSION['image'] = '<img src="images/v.png">';
 									header('Location: registration2.php');
 									exit();
 								}
@@ -102,15 +120,20 @@
 					}
 					else {
 						$_SESSION['error2'] = 'Podany numer PESEL jest już w bazie użytkowników.';
+						$_SESSION['popup'] = true;
+						$_SESSION['image'] = '<img src="images/x.png">';
 						header('Location: registration2.php');
 						exit();
 					}
 				}
 			}
+			echo $street;
 		}
 	}
 	else {
 		$_SESSION['error2'] = 'Podany PESEL lub telefon jest nie prawidlowy';
+		$_SESSION['popup'] = true;
+		$_SESSION['image'] = '<img src="images/x.png">';
 		header('Location: registration2.php');
 		exit();
 	}

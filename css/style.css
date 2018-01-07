@@ -13,8 +13,7 @@
 		margin: 0 auto;
 	}
 	
-	.header
-	{
+	.header	{
 		position: relative;
 		background-color: white;
 		width: 100%;
@@ -39,7 +38,7 @@
 	ul.menu li 
 	{
 		box-sizing: border-box;
-		width: 20%;
+		width: 25%;
 		float: left;
 		border-width: 0 0.5px 5px 0px;
 		border-style: solid;
@@ -112,7 +111,6 @@
 		border-top: 1px solid silver;
 		background: rgba(255, 255, 255, .3);
 		border-radius: 50px 50px 0px 5px;
-
 		clear: both;
 	}
 	
@@ -129,7 +127,7 @@
 		text-shadow: 0 0 1px silver;
 	}
 	
-	#login, #password, #nick, #haslo1, #haslo2, #email, #name, #surname, #street, #city, #postcode, #province, #country, #pesel, #telefon, #post_code {
+	#login, #password, #nick, #haslo1, #haslo2, #email, #name, #surname, #street, #city, #postcode, #province, #country, #pesel, #telefon, #post_code, #stare, #nowe1, #nowe2 {
 		display: block;
 		width: 360px; 
 		margin: 0 auto;
@@ -233,7 +231,7 @@
 	.buttony {
 		float: left;
 		width: 100%;
-		margin-top: 30px;
+		margin-top: 10px;
 	}
 	
 	.dalej {
@@ -478,6 +476,12 @@
 		margin-right: 55px;
 	}
 	
+	.wroc4 {
+		width: 30%;
+		float: right;
+		margin-right: 55px;
+	}	
+	
 	
 	-----------------------------
 	
@@ -523,4 +527,90 @@
 		background: rgba(255, 255, 255, .4);
 		border-radius: 50px 50px 0px 5px;
 		opacity: 0.2;
+	}
+	
+	.zakryj2 {
+		position: relative;
+		width: 30%;
+		height: 85%;
+		margin-top: 100px;
+		margin-left: auto; 
+		margin-right: auto;
+		border-style: dotted;
+		border: 1px solid silver;
+		background: rgba(255, 255, 255, .4);
+		border-radius: 50px 50px 0px 5px;
+		opacity: 0.2;
+	}
+
+	.x-image, .v-mage {
+		
+	}
+	
+	.x-image-show {
+		visibility: visible;
+	}
+
+	.v-image-show {
+		visibility: visible;
+	}
+	
+	.malybox {
+		position: relative;
+		width: 50%;
+		height: 100%;
+		margin-top: 100px;
+		margin-left: auto; 
+		margin-right: auto;
+		border-style: dotted;
+		border: 1px solid silver;
+		background: rgba(255, 255, 255, .4);
+		border-radius: 50px 50px 0px 5px;
+	}
+	
+	.malyleftbox {
+		position: relative;
+		width: 50%;
+		float: left;
+		font-size: 28px;
+		margin-left: 35px;
+	}
+	
+	.malyrightbox {
+		display: block;
+		position: relative;
+		width: 40%;
+		float: right;
+		
+	}
+	
+	.wroc3 {
+		width: 20%;
+		float: right;
+		margin-right: 35px;
+	}
+	.zmienhaslo {
+		float: left;
+		margin: 0 auto;
+		width: 20%;
+		margin-left: 35px;
+	}
+	
+	.buttony2 {
+		float: left;
+		width: 100%;
+		margin-top: 35px;
+	}
+	
+	.zmiana {
+		position: relative;
+		width: 30%;
+		height: 70%;
+		margin-top: 100px;
+		margin-left: auto; 
+		margin-right: auto;
+		border-style: dotted;
+		border: 1px solid silver;
+		background: rgba(255, 255, 255, .4);
+		border-radius: 50px 50px 0px 5px;
 	}

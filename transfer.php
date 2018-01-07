@@ -28,7 +28,7 @@
 			}
 		</script>
 		
-		<title>System bankowy</title>
+		<title>Przelew</title>
 		
 	</head>
 	
@@ -38,10 +38,20 @@
 			<div class='popup'>
 				<span class='popuptext' id='myPopup'>
 					<div class='popup-image'>
-						<img src='images/v.png'>
+						<?php 
+							if(isset($_SESSION['image'])) {
+								echo $_SESSION['image'];
+								unset($_SESSION['image']);
+							}
+						?>
 					</div>
-						<h2>Przelew wykonano pomyślnie!</h4>
-						<form action='index.php' method='post'>
+						<h2><?php 
+							if(isset($_SESSION['error2'])) {
+									echo $_SESSION['error2'];
+									unset($_SESSION['error2']);
+							}
+						?></h2>
+						<form action='getaccountinformations.php' method='post'>
 							<button type='submit' name='submit' class='button'>OK</button>
 						</form>
 				</span>	
@@ -77,14 +87,6 @@
 						<div class="dalej"> 
 							<input type="submit" value="Wykonaj" class="button" onclick="myFunction()"/>
 						</div>
-						<div class="error2">
-							<?php
-								if(isset($_SESSION['error2'])) {
-									echo "<br><br>".$_SESSION['error2'];
-									unset($_SESSION['error2']);
-								}
-							?>
-						</div>		
 					</div>
 						
 				</form>

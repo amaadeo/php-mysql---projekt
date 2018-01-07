@@ -1,4 +1,14 @@
 <?php 
+
+	function filtruj($zmienna)
+	{
+		if(get_magic_quotes_gpc())
+			$zmienna = stripslashes($zmienna); // usuwamy slashe
+	 
+	   // usuwamy spacje, tagi html oraz niebezpieczne znaki
+		return htmlentities(trim($zmienna), ENT_QUOTES, "UTF-8");
+	}
+
 	session_start();
 	
 	if(!isset($_POST['login']) || !isset($_POST['password'])) {
@@ -13,11 +23,8 @@
 		echo "Error: ".$connect->connect_errno;
 	}
 	else {
-		$login = $_POST['login'];
-		$password = $_POST['password'];
-		
-		$login = htmlentities($login, ENT_QUOTES, "UTF-8");
-		
+		$login = filtruj($_POST['login']);
+		$password = filtruj($_POST['password']);
 
 		if ($result = @$connect->query(
 			sprintf("SELECT * FROM accounts WHERE Login = '%s'",
@@ -27,8 +34,11 @@
 				
 				if ($users_number > 0) {
 					
-					$row = $result->fetch_assoc();					
-					if(password_verify($password, $row['Password'])){
+					$row = $result->fetch_assoc();
+					$czy_otwarte = $row['Account_Status_ID'];
+					
+					if($czy_otwarte == 1) {
+						if(password_verify($password, $row['Password'])){
 						
 						$_SESSION['ifLogIn'] = true;
 						$_SESSION['user'] = $row['Login'];
@@ -36,12 +46,16 @@
 						$result->free_result();
 						$_SESSION['flag'] = true;
 						header('Location: getaccountinformations.php');
-
+						}
+						else {
+							$_SESSION['error'] = 'Nieprawidłowy login lub hasło!';
+							header('Location: index.php');
+						}
 					}
 					else {
-						$_SESSION['error'] = 'Nieprawidłowy login lub hasło!';
-						header('Location: index.php');
-					}
+					$_SESSION['error'] = 'Nieprawidłowy login lub hasło!';
+					header('Location: index.php');
+				}
 				}
 				else {
 					$_SESSION['error'] = 'Nieprawidłowy login lub hasło!';

@@ -25,6 +25,9 @@
 		echo "Error: ".$connect->connect_errno;
 	}
 	else {
+		$connect->query ('SET NAMES utf8');
+		$connect->query ('SET CHARACTER_SET utf8_unicode_ci');
+		
 		$numer_klienta = $_SESSION['account_id'];
 		
 		if(isset($fromdate) && isset($todate)) {
